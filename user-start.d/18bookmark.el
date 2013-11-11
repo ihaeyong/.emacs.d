@@ -5,6 +5,5 @@
       (require 'bookmark)
       (setq bookmark-default-file
             (expand-file-name "~/.emacs.bmk"))
-      (unless (file-exists-p bookmark-default-file)
-        (bookmark-save bookmark-default-file))
+      (unless (file-exists-p bookmark-default-file) (bookmark-save))
       (bookmark-load bookmark-default-file)))
