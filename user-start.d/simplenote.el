@@ -11,4 +11,5 @@
                    (password (nth 1 credentials)))
               (setq simplenote-email login)
               (setq simplenote-password password))
-            (simplenote-setup)))))
+            (simplenote-setup)
+            (setq simplenote-notes-mode 'markdown-mode)))))
