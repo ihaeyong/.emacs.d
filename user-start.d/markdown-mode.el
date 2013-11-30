@@ -4,8 +4,14 @@
     (progn
       (autoload 'markdown-mode "markdown-mode.el"
         "Major mode for editing Markdown files" t)
-      (autoload 'gfm-mode "markdown-mode.el"
-        "Major mode for editing Github Flavored Markdown files" t)
+      (add-hook 'markdown-mode-hook 
+                '(lambda()
+                   (progn
+                     (setq markdown-link-space-sub-char "-")
+                     (set (make-local-variable 'font-lock-defaults)
+                          '(gfm-font-lock-keywords))
+                     (auto-fill-mode 0)
+                     (markdown-fontify-buffer-wiki-links))))
       (cond
        ((file-executable-p "/usr/local/bin/multimarkdown")
         (setq markdown-command "/usr/local/bin/multimarkdown"))
@@ -47,4 +53,5 @@
            (format "open -a /Applications/Marked.app %s"
                    (shell-quote-argument (buffer-file-name)))))
         (global-set-key "\C-cm" 'markdown-preview-file))
-      (add-to-list 'auto-mode-alist '("\\.md$" . gfm-mode))))
+      (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
+      (add-to-list 'auto-mode-alist '("\\.markdown$" . markdown-mode))))
