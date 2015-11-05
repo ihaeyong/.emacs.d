@@ -11,3 +11,5 @@
            (directory-files dir t el-suffix))))
   (while files (load (car files) 'noerror) (setq files (cdr files))))
 (if custom-file (load custom-file 'noerror))
+
+(put 'downcase-region 'disabled nil)

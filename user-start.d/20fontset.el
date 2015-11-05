@@ -7,31 +7,35 @@
       (cond
        ((and (string-match "linux-gnu" system-configuration)
              (display-graphic-p))
-        (add-to-list 'default-frame-alist '(font . "TakaoGothic-12"))
-        (add-to-list 'initial-frame-alist '(font . "TakaoGothic-12"))
+        (add-to-list 'default-frame-alist '(font . "TakaoGothic-14"))
+        (add-to-list 'initial-frame-alist '(font . "TakaoGothic-14"))
         (add-hook 'after-init-hook
-                  (lambda () (set-frame-font "TakaoGothic-12"))))
+                  (lambda () (set-frame-font "TakaoGothic-14"))))
        ((and (string-match "mingw-nt" system-configuration)
              (display-graphic-p))
-        (add-to-list 'default-frame-alist '(font . "MS Gothic-12"))
-        (add-to-list 'initial-frame-alist '(font . "MS Gothic-12"))
+        (add-to-list 'default-frame-alist '(font . "MS Gothic-14"))
+        (add-to-list 'initial-frame-alist '(font . "MS Gothic-14"))
         (add-hook 'after-init-hook
-                  (lambda () (set-frame-font "MS Gothic-12"))))
+                  (lambda () (set-frame-font "MS Gothic-14"))))
        ((and (string-match "apple-darwin" system-configuration)
              (display-graphic-p))
-        (create-fontset-from-ascii-font
-         "Menlo-12:weight=normal:slant=normal"
-         nil
-         "menlokakugo")
-        (set-fontset-font
-         "fontset-menlokakugo"
-         'unicode
-         (font-spec :family "Hiragino Kaku Gothic ProN" :size 12)
-         nil
-         'append)
-        (add-to-list 'default-frame-alist '(font . "fontset-menlokakugo"))
-        (add-to-list 'initial-frame-alist '(font . "fontset-menlokakugo"))
-        (add-to-list 'face-font-rescale-alist 
-                     '(".*Hiragino Kaku Gothic ProN.*" . 1.2))
-        (add-hook 'after-init-hook
-                  (lambda () (set-frame-font "fontset-menlokakugo")))))))
+        (set-face-attribute 'default nil :family "Menlo" :height 140)
+        (set-fontset-font "fontset-default"
+                          '(#x0080 . #x024F)
+                          (font-spec :family "Menlo"))
+        (set-fontset-font "fontset-default"
+                          '(#x0370 . #x03FF)
+                          (font-spec :family "Menlo"))
+        (set-fontset-font "fontset-default"
+                          'katakana-jisx0201
+                          (font-spec :family "Hiragino Kaku Gothic ProN"))
+        (set-fontset-font "fontset-default"
+                          'japanese-jisx0213.2004-1
+                          (font-spec :family "Hiragino Kaku Gothic ProN"))
+        (set-fontset-font "fontset-default"
+                          'japanese-jisx0213-2
+                          (font-spec :family "Hiragino Kaku Gothic ProN"))
+        (setq face-font-rescale-alist
+              '((".*-Hiragino Kaku Gothic ProN-.*" . 1.2)
+                (".*monaco cy-bold-.*-mac-cyrillic" . 0.9)
+                (".*monaco-bold-.*-mac-roman" . 0.9)))))))
